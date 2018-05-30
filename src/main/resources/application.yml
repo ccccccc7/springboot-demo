@@ -5,7 +5,7 @@ spring:
     restart:
       enabled: false
   thymeleaf:
-    mode: HTML
+    mode: HTML5
     cache: false
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -54,3 +54,7 @@ logging:
     org.springframework:
       web: INFO
       security: INFO
+config:
+  name: ly
+  password: 123456
+  uuid: ${random.uuid}
