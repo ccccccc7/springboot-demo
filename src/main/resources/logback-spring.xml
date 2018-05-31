@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!--configuration属性一共两个属性，三个子节点-->
+    <!--设置上下文名称-->
+    <contextName>logback</contextName>
+    <!--定义路径变量-->
+    <property name="log.path" value="C:/project/springboot-demo/log"/>
+
+    <!--输出到控制台-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!--encoder表示对日志编码-->
+        <!--%d{HH: mm:ss.SSS} 日志输出时间-->
+        <!--%thread 输出日志的进程名字，这在Web应用以及异步任务处理中很有用-->
+        <!--%-5level 日志级别，并且使用5个字符靠左对齐-->
+        <!--%logger{36} 日志输出者的名字-->
+        <!--%msg 日志消息-->
+        <!--%n 平台的换行符-->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--输出到文件-->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/logback.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!--保留最近30天日志-->
+            <maxHistory>30</maxHistory>
+            <!--日志文件上限大小，如果超出上限，将会删除旧的日志-->
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--root节点用来指定最基础的日志输出级别，只有一个level属性-->
+    <root level="info">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </root>
+
+    <!--logger：用来设置某一个包或者某一个类的打印级别，仅有一个name属性，一个可选的level属性和一个可选的addtivity属性-->
+    <!--name:指定受此logger约束的某一个包或者具体的一个类-->
+    <!--level:用来设置打印级别，大小写无关，如果未设置此属性，level将继承上级的级别-->
+    <!--addtivity：是否向上级logger传递打印信息。默认为true-->
+
+    <!--配置mybatis打印sql-->
+    <logger name="com.zyl.web.dao" level="debug" addtivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+</configuration>
