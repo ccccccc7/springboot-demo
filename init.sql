@@ -57,3 +57,12 @@ CREATE TABLE `t1`.`permission` (
   COLLATE = utf8_general_ci;
 /*初始化权限表*/
 INSERT INTO `t1`.`permission` (name, role_id) VALUES ('添加用户', 1)
+
+/**
+demo表
+ */
+CREATE TABLE `demo` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
